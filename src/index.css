@@ -1,34 +1,115 @@
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 20px;
   padding: 0;
 }
 
-.square {
-  width: 35px;
-  height: 35px;
-  border: 1px solid black;
-  background-color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
+.game {
+  display: flex;
+  flex-direction: row;
+  font-family: "Arial", sans-serif;
+  max-width: 650px;
+  justify-content: center;
+  margin: 0px auto;
+}
+
+.title {
+  color: #333; /* Warna teks */
+  font-size: 24px; /* Ukuran font */
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 30px;
+}
+
+.game-info h1 {
+  color: #333; /* Misalnya, memberikan warna merah pada teks */
+  font-size: 20px; /* Ukuran font */
+  /* Tambahan gaya lainnya sesuai kebutuhan */
+}
+
+.game-board {
+  margin-right: 30px;
 }
 
 .board {
-  display: flex;
-  flex-wrap: wrap;
-  width: 105px;
-  height: 105px;
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 80px);
+  gap: 5px;
 }
 
+.square {
+  width: 90px;
+  height: 90px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.square.blue {
+  color: #4285f4;
+}
+
+.square.red {
+  color: #ea4335;
+}
+
+
 .status {
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
-.game {
-  display: flex;
+/* Styles for 'X' and 'O' in the "Next player" and "Winner" messages */
+.status.X {
+  color: #4285f4; /* Lighter shade of blue for 'X' */
+}
+
+.status.O {
+  color: #ea4335; /* Lighter shade of red for 'O' */
+}
+
+.square:hover {
+  background-color: #eee;
+}
+
+.status {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.game-info {
+  max-width: 200px;
+}
+
+ol {
+  padding: 0;
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 5px;
+  
+}
+
+button {
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px;
+  width: 150px;
+}
+
+button:hover {
+  background-color: #ddd;
 }

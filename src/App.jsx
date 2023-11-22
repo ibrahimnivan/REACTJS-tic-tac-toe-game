@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-function Square({ value, onSquareClick }) { //bikin satu kotak
+function Square({ value, onSquareClick }) {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className={`square ${value === "X" ? "blue" : ""} ${value === "O" ? "red" : ""}`} onClick={onSquareClick}>
       {value}
     </button>
   );
@@ -28,7 +28,7 @@ function Board({ xIsNext, squares, onPlay }) {
 
   return (
     <>
-      <div className="status">{status}</div>
+      <div className={`status ${xIsNext ? "X" : "O"}`}>{status}</div>
       <div className="board">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -46,22 +46,22 @@ function Board({ xIsNext, squares, onPlay }) {
 
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]); // bikin array di dalam array ketika diclick
-  const [currentMove, setCurrentMove] = useState(0);  // move ke 0,1,2,3
-  const xIsNext = currentMove % 2 === 0;  //0 % 2 = 0 makanya pertamakali dijalankan 'X'
+  const [currentMove, setCurrentMove] = useState(0); // move ke 0,1,2,3
+  const xIsNext = currentMove % 2 === 0; //0 % 2 = 0 makanya pertamakali dijalankan 'X'
   const currentSquares = history[currentMove]; // array terakhir di history
-
 
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
 
   function handlePlay(nextSquares) {
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares] //array di dalam array dipotong jika jumpTo
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]; //array di dalam array dipotong jika jumpTo
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
-  const moves = history.map((squares, move) => {  // history menjadi rangkaian tombol, move = index
+  const moves = history.map((squares, move) => {
+    // history menjadi rangkaian tombol, move = index
     let description = "";
     if (move > 0) {
       description = "Go to move #" + move;
@@ -77,18 +77,20 @@ export default function Game() {
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+    <>
+      <h1 className="title">Tic Tac Toe Game</h1>
+      <div className="game">
+        <div className="game-board">
+          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        </div>
+        <div className="game-info">
+          <h1>History</h1>
+          <ol>{moves}</ol>
+        </div>
       </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
-      </div>
-    </div>
+    </>
   );
 }
-
-
 
 function calculateWinner(squares) {
   const lines = [
@@ -111,4 +113,3 @@ function calculateWinner(squares) {
   }
   return null; // Return null if there's no winner
 }
-
