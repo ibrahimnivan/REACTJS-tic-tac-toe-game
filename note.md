@@ -1,0 +1,1 @@
+toUpdate = history ngga diperbaharui kl udah click jumpto
